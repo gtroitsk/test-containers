@@ -1,9 +1,10 @@
 package org.acme;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
-import io.smallrye.mutiny.Uni;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -11,13 +12,14 @@ import java.util.List;
 public class Person extends PanacheEntity {
     public String name;
     public LocalDate birth;
+    @Enumerated(EnumType.STRING)
     public Status status;
 
-    public static Uni<Person> findByName(String name){
+    public static Person findByName(String name){
         return find("name", name).firstResult();
     }
 
-    public static Uni<List<Person>> findAlive(){
+    public static List<Person> findAlive(){
         return list("status", Status.Alive);
     }
 
