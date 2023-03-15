@@ -3,7 +3,7 @@ package org.acme;
 import io.quarkus.test.junit.QuarkusTest;
 
 @QuarkusTest
-public class PersonTest extends CommonTest {
+public class PersonTest extends CommonTestCases {
 
 }
 

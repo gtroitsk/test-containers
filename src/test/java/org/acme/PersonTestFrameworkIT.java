@@ -7,13 +7,13 @@ import io.quarkus.test.services.Container;
 import io.quarkus.test.services.QuarkusApplication;
 
 @QuarkusScenario
-public class PersonIT extends CommonTest {
-    @Container(image = "docker.io/postgres:13.6", port = 5432, expectedLog = "listening on IPv6 address")
+public class PersonTestFrameworkIT extends CommonTestCases {
+    @Container(image = "docker.io/postgres:15", port = 5432, expectedLog = "listening on IPv6 address")
     static PostgresqlService postgres = new PostgresqlService()
-            .with("test", "test", "personDB")
             .withProperty("POSTGRES_USER", "test")
             .withProperty("POSTGRES_PASSWORD", "test")
-            .withProperty("POSTGRES_DB", "personDB");
+            .withProperty("POSTGRES_DB", "personDB")
+            .withProperty("PGDATA", "/tmp/psql");
 
     @QuarkusApplication
     static final RestService app = new RestService()

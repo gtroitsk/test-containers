@@ -13,7 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public abstract class CommonTest {
+public abstract class CommonTestCases {
     @BeforeEach
     public void initDatabase() {
         given().body("{\"name\":\"Georgii\", \"birth\": \"2000-10-18\", \"status\": \"ALIVE\"}")

@@ -1,4 +1,4 @@
-package org.acme;
+package org.acme.resources;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
