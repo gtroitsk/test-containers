@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/person")
-public class GreetingResource {
+public class PersonResource {
 
     @GET
     @Path("/hello/world")
