@@ -28,7 +28,6 @@ public class GreetingResource {
     }
 
     @POST
-    @Path("/person")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
@@ -39,6 +38,7 @@ public class GreetingResource {
 
     @DELETE
     @Path("/{name}")
+    @Transactional
     public long personDelete(@PathParam("name") String name) {
         return Person.deleteUser(name);
     }

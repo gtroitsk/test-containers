@@ -16,7 +16,7 @@ public class Person extends PanacheEntity {
     public Status status;
 
     public static Person findByName(String name){
-        return find("name", name).firstResult().;
+        return find("name", name).firstResult();
     }
 
     public static List<Person> findAlive(){
