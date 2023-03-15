@@ -7,5 +7,4 @@ import io.quarkus.test.junit.TestProfile;
 @TestProfile(PostgresTestProfile.class)
 public class PersonTestContainerTest extends CommonTest {
 
-
 }

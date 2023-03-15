@@ -14,8 +14,10 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.16.4.Final</quarkus.platform.version>
-    <skipITs>true</skipITs>
+    <skipITs>false</skipITs>
     <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+    <include.tests>**/*IT.java</include.tests>
+    <exclude.openshift.tests>**/OpenShift*IT.java</exclude.openshift.tests>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -34,7 +36,6 @@
         <scope>import</scope>
       </dependency>
     </dependencies>
-
   </dependencyManagement>
   <dependencies>
     <dependency>
@@ -61,6 +62,11 @@
       <groupId>io.quarkus.qe</groupId>
       <artifactId>quarkus-test-containers</artifactId>
       <version>${quarkus.qe.framework.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus.qe</groupId>
+      <artifactId>quarkus-test-openshift</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -136,8 +142,11 @@
                 <maven.home>${maven.home}</maven.home>
               </systemPropertyVariables>
               <includes>
-                <include>**/*IT.java</include>
+                <include>${include.tests}</include>
               </includes>
+              <excludes>
+                <exclude>${exclude.openshift.tests}</exclude>
+              </excludes>
             </configuration>
           </execution>
         </executions>
@@ -155,6 +164,20 @@
       <properties>
         <skipITs>false</skipITs>
         <quarkus.package.type>native</quarkus.package.type>
+      </properties>
+    </profile>
+    <profile>
+      <!-- You need to be connected to an OpenShift instance to activate
+          this profile! -->
+      <id>openshift</id>
+      <activation>
+        <property>
+          <name>openshift</name>
+        </property>
+      </activation>
+      <properties>
+        <include.tests>**/OpenShift*IT.java</include.tests>
+        <exclude.openshift.tests>no</exclude.openshift.tests>
       </properties>
     </profile>
   </profiles>
