@@ -16,11 +16,11 @@ public class Person extends PanacheEntity {
     public Status status;
 
     public static Person findByName(String name){
-        return find("name", name).firstResult();
+        return find("name", name).firstResult().;
     }
 
     public static List<Person> findAlive(){
-        return list("status", Status.Alive);
+        return list("status", Status.ALIVE);
     }
 
     public static long deleteUser(String name){

@@ -1,37 +1,44 @@
 package org.acme;
 
-import io.smallrye.mutiny.Uni;
-
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("/hello")
+@Path("/person")
 public class GreetingResource {
 
     @GET
+    @Path("/hello/world")
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
         return "Hello from RESTEasy Reactive";
     }
 
     @GET
-    @Path("/person/{name}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Uni<Person> personGet(@PathParam("name") String name) {
+    @Path("/{name}")
+    public Person personGet(@PathParam("name") String name) {
         return Person.findByName(name);
+    }
+
+    @GET
+    public List<Person> personStatus() {
+        return Person.findAlive();
     }
 
     @POST
     @Path("/person")
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Uni<List<Person>> personStatus() {
-        return Person.findAlive();
+    @Transactional
+    public Response createPerson(Person person) {
+        person.persist();
+        return Response.status(Response.Status.CREATED).build();
     }
 
     @DELETE
-    @Path("/person/{name}")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/{name}")
     public long personDelete(@PathParam("name") String name) {
         return Person.deleteUser(name);
     }
