@@ -1,6 +1,7 @@
 package org.acme;
 
 import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,12 @@ public class PersonTest {
                 .header("Content-Type", MediaType.APPLICATION_JSON)
                 .when().post("/person")
                 .then().statusCode(201);
+    }
+
+    @AfterEach
+    void dropDatabase() {
+        given().when().delete("/person/Georgii");
+        given().when().delete("/person/test");
     }
 
     @Test
